@@ -20,7 +20,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-2xl font-bold sm:text-4xl">
           <span className="text-primary">Gh</span>
           Insight
         </h1>
