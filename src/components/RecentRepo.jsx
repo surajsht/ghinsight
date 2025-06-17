@@ -9,7 +9,7 @@ const getRepoData = async (user) => {
 
   const resp = await axios.get(`https://api.github.com/users/${user}/repos`, {
     headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
+      Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
     },
   });
   return resp.data;
@@ -55,7 +55,9 @@ const RecentRepo = ({ value }) => {
             </div>
 
             <div>
-              <span className={`block h-3 w-3 rounded-full ${languageColors[repo?.language] || languageColors['Other']}`}></span>
+              <span
+                className={`block h-3 w-3 rounded-full ${languageColors[repo?.language] || languageColors["Other"]}`}
+              ></span>
               {repo?.language}
             </div>
 

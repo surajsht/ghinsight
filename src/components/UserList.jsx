@@ -6,7 +6,7 @@ const getUserData = async (user) => {
 
   const resp = await axios.get(`https://api.github.com/users/${user}`, {
     headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
+      Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
     },
   });
   return resp.data;
@@ -24,7 +24,6 @@ const UserList = ({ value }) => {
   if (error) return <div>Error {error.message} </div>;
 
   console.log(data);
-  
 
   return (
     <div>
@@ -36,8 +35,14 @@ const UserList = ({ value }) => {
       <img src={data?.avatar_url} alt={data?.name} />
       <span> Followers:{data?.followers} </span>
       <span> Following:{data?.following} </span>
-      <span> Created at: {new Date(data?.created_at).toLocaleDateString()} </span>
-      <span> Updated at: {new Date(data?.updated_at).toLocaleDateString()} </span>
+      <span>
+        {" "}
+        Created at: {new Date(data?.created_at).toLocaleDateString()}{" "}
+      </span>
+      <span>
+        {" "}
+        Updated at: {new Date(data?.updated_at).toLocaleDateString()}{" "}
+      </span>
       <span> {data?.location || "Location not included"} </span>
       <span className="text-secondary"> Followers </span>
     </div>
