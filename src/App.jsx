@@ -18,7 +18,7 @@ const App = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-100 pt-14 font-sans dark:bg-[#121212]">
+      <div className="min-h-screen bg-gray-100 py-14 font-sans dark:bg-[#121212]">
         <div className="container">
           <div className="rounded-3xl bg-white p-4 sm:p-8">
             <Navbar />
@@ -27,9 +27,7 @@ const App = () => {
 
           <UserData value={debouncedValue} />
 
-          <div className="mt-8 rounded-3xl bg-white p-4 sm:p-8">
-            <RecentRepo value={debouncedValue} />
-          </div>
+          <RecentRepo value={debouncedValue} />
         </div>
       </div>
     </>

@@ -12,7 +12,7 @@ const getRepoData = async (user, page) => {
     `https://api.github.com/users/${user}/repos?page=${page}&per_page=10`,
     {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
       },
     },
   );
@@ -47,40 +47,49 @@ const RecentRepo = ({ value }) => {
 
   if (isError) return <div>Error {error.message} </div>;
 
+  if (!data) return null;
+
+  console.log(data.repos);
+
   return (
-    <div>
-      <div className={`${isFetching ? "bg-slate-500" : ""}`}>
+    <div className="mt-8">
+      <div className="flex flex-col flex-wrap justify-between gap-4 md:flex-row">
         {data?.repos?.map((repo) => {
           return (
-            <div key={repo?.id}>
-              <h2 className="mb-2 text-xl font-bold">
+            <div
+              key={repo?.id}
+              className="flex flex-col flex-wrap items-start justify-center gap-2 rounded-3xl bg-white p-4 sm:p-8 md:w-[calc(50%-8px)]"
+            >
+              <h2 className="text-2xl font-bold">
                 <a
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline"
+                  className="hover:text-secondary text-blue-600"
                 >
                   {repo?.name}
                 </a>
               </h2>
 
-              <p className="mb-4"> {repo?.description} </p>
+              {repo?.description && <p> {repo?.description} </p>}
 
               <div className="flex items-center gap-2">
-                <FaStar style={{ color: "#e3b341" }} />
-                <span>{repo?.stargazers_count}</span>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <FaCodeFork />
-                <span>Fork Count: {repo?.forks_count}</span>
-              </div>
-
-              <div>
                 <span
                   className={`block h-3 w-3 rounded-full ${languageColors[repo?.language] || languageColors["Other"]}`}
                 ></span>
-                {repo?.language}
+                {repo?.language || "Language not specified"}
+              </div>
+
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <FaStar style={{ color: "#e3b341" }} />
+                  <span>{repo?.stargazers_count}</span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <FaCodeFork />
+                  <span>Fork Count: {repo?.forks_count}</span>
+                </div>
               </div>
 
               <span>
@@ -91,15 +100,18 @@ const RecentRepo = ({ value }) => {
         })}
       </div>
 
-      <div>
+      <div className="mt-8 flex items-center justify-center gap-4">
         <button
           onClick={() => setPage((old) => Math.max(old - 1, 1))}
           disabled={page === 1}
+          className="hover:bg-secondary rounded-lg bg-blue-500 px-4 py-2 text-white transition disabled:cursor-not-allowed disabled:opacity-50"
         >
           Previous
         </button>
 
-        <span>{page}</span>
+        <span className="rounded border border-gray-300 px-4 py-2 text-lg font-medium">
+          {page}
+        </span>
 
         <button
           onClick={() => {
@@ -107,6 +119,7 @@ const RecentRepo = ({ value }) => {
             setPage((old) => old + 1);
           }}
           disabled={!data?.hasNextPage}
+          className="hover:bg-secondary rounded-lg bg-blue-500 px-4 py-2 text-white transition disabled:cursor-not-allowed disabled:opacity-50"
         >
           Next
         </button>

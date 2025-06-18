@@ -13,7 +13,7 @@ const getUserData = async (user) => {
 
   const resp = await axios.get(`https://api.github.com/users/${user}`, {
     headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
+      Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
     },
   });
   return resp.data;
@@ -30,7 +30,7 @@ const UserData = ({ value }) => {
 
   if (error) return <div>Error {error.message} </div>;
 
-  if(!data) return null;
+  if (!data) return null;
 
   return (
     <div className="mt-8 rounded-3xl bg-white p-4 sm:p-8">
@@ -43,12 +43,9 @@ const UserData = ({ value }) => {
           />
 
           <div>
-            <h2 className="text-2xl font-bold">{data?.name}</h2>
+            <h2 className="text-xl font-bold sm:text-2xl">{data?.name}</h2>
 
-            <h2 className="mb-2 font-semibold text-black/75">
-              {" "}
-              @{data?.login}{" "}
-            </h2>
+            <h2 className="mb-2 font-semibold text-black/75">@{data?.login}</h2>
           </div>
         </div>
 
@@ -83,13 +80,13 @@ const UserData = ({ value }) => {
 
           <div className="flex items-center gap-2">
             <PiUsersBold />
-            <span className="text-secondary"> Followers: </span>
+            <span className="text-primary"> Followers: </span>
             {data?.followers}
           </div>
 
           <div className="flex items-center gap-2">
             <FaRegUser />
-            <span className="text-secondary">Following: </span>
+            <span className="text-primary">Following: </span>
             {data?.following}
           </div>
         </div>
