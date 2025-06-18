@@ -27,7 +27,7 @@ const App = () => {
 
           <UserData value={debouncedValue} />
 
-          <RecentRepo value={debouncedValue} />
+          {debouncedValue && <RecentRepo value={debouncedValue} />}
         </div>
       </div>
     </>

@@ -8,13 +8,14 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { PiUsersBold } from "react-icons/pi";
 import UserDataLoader from "./skeletonLoader/UserDataLoader";
+import ErrorState from "./ErrorState";
 
 const getUserData = async (user) => {
   if (!user) return null;
 
   const resp = await axios.get(`https://api.github.com/users/${user}`, {
     headers: {
-      Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
+      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
     },
   });
   return resp.data;
@@ -28,9 +29,7 @@ const UserData = ({ value }) => {
   });
 
   if (isLoading) return <UserDataLoader />;
-
-  if (error) return <div>Error {error.message} </div>;
-
+  if (error) return <ErrorState message={error.message} />;
   if (!data) return null;
 
   return (
@@ -44,7 +43,16 @@ const UserData = ({ value }) => {
           />
 
           <div>
-            <h2 className="text-xl font-bold sm:text-2xl">{data?.name}</h2>
+            <h2 className="text-xl font-bold hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover sm:text-2xl">
+              <a
+                href={data?.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {" "}
+                {data?.name}{" "}
+              </a>
+            </h2>
 
             <h2 className="mb-2 font-semibold text-black/75 dark:text-text-black-rgba">
               @{data?.login}
@@ -52,7 +60,7 @@ const UserData = ({ value }) => {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-wrap gap-4">
+        <div className="flex flex-1 flex-col sm:flex-row sm:flex-wrap gap-4">
           <div className="flex items-center gap-2">
             <MdOutlineEmail />
             <span>{data?.email || "Email not included"}</span>
