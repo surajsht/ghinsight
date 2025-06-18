@@ -8,7 +8,11 @@ module.exports = {
       },
       colors: {
         primary: "#3B82F6",
-        secondary:"#F43F5E"
+        "primary-dark": "#bed3ff",
+        "primary-hover": "#F43F5E",
+        "black-rgba": "rgba(255, 255, 255, 0.16)",
+        "black-rgba-light": "rgba(255, 255, 255, 0.3)",
+        "text-black-rgba": "rgba(255, 255, 255, 0.7)",
       },
     },
     container: {

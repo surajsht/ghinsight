@@ -20,13 +20,13 @@ const Navbar = () => {
   return (
     <nav>
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold sm:text-4xl">
-          <span className="text-primary">Gh</span>
+        <h1 className="text-3xl font-bold sm:text-4xl dark:text-white">
+          <span className="text-primary dark:text-primary-dark">Gh</span>
           Insight
         </h1>
 
         <div
-          className={`relative h-6 w-11 cursor-pointer rounded-full transition-colors duration-300 ${darkMode ? "bg-primary" : "bg-gray-300"}`}
+          className={`relative h-6 w-11 cursor-pointer rounded-full transition-colors duration-300 ${darkMode ? "bg-primary dark:bg-primary-dark" : "bg-gray-300"}`}
           onClick={() => JSON.stringify(setDarkMode(!darkMode))}
         >
           <span

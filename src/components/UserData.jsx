@@ -33,7 +33,7 @@ const UserData = ({ value }) => {
   if (!data) return null;
 
   return (
-    <div className="mt-8 rounded-3xl bg-white p-4 sm:p-8">
+    <div className="dark:bg-black-rgba mt-8 rounded-3xl bg-white p-4 dark:text-white sm:p-8">
       <div className="flex flex-col justify-between gap-6">
         <div className="flex w-full items-center gap-4 border-b-2 pb-4">
           <img
@@ -45,7 +45,9 @@ const UserData = ({ value }) => {
           <div>
             <h2 className="text-xl font-bold sm:text-2xl">{data?.name}</h2>
 
-            <h2 className="mb-2 font-semibold text-black/75">@{data?.login}</h2>
+            <h2 className="dark:text-text-black-rgba mb-2 font-semibold text-black/75">
+              @{data?.login}
+            </h2>
           </div>
         </div>
 
@@ -80,13 +82,18 @@ const UserData = ({ value }) => {
 
           <div className="flex items-center gap-2">
             <PiUsersBold />
-            <span className="text-primary"> Followers: </span>
+            <span className="dark:text-primary-dark text-primary">
+              {" "}
+              Followers:{" "}
+            </span>
             {data?.followers}
           </div>
 
           <div className="flex items-center gap-2">
             <FaRegUser />
-            <span className="text-primary">Following: </span>
+            <span className="dark:text-primary-dark text-primary">
+              Following:{" "}
+            </span>
             {data?.following}
           </div>
         </div>

@@ -58,14 +58,14 @@ const RecentRepo = ({ value }) => {
           return (
             <div
               key={repo?.id}
-              className="flex flex-col flex-wrap items-start justify-center gap-2 rounded-3xl bg-white p-4 sm:p-8 md:w-[calc(50%-8px)]"
+              className="dark:bg-black-rgba flex flex-col flex-wrap items-start justify-center gap-2 rounded-3xl bg-white p-4 dark:text-white sm:p-8 md:w-[calc(50%-8px)]"
             >
               <h2 className="text-2xl font-bold">
                 <a
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-secondary text-blue-600"
+                  className="hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover text-blue-600"
                 >
                   {repo?.name}
                 </a>
@@ -77,7 +77,7 @@ const RecentRepo = ({ value }) => {
                 <span
                   className={`block h-3 w-3 rounded-full ${languageColors[repo?.language] || languageColors["Other"]}`}
                 ></span>
-                {repo?.language || "Language not specified"}
+                {repo?.language || "Other"}
               </div>
 
               <div className="flex items-center gap-6">
@@ -104,12 +104,12 @@ const RecentRepo = ({ value }) => {
         <button
           onClick={() => setPage((old) => Math.max(old - 1, 1))}
           disabled={page === 1}
-          className="hover:bg-secondary rounded-lg bg-blue-500 px-4 py-2 text-white transition disabled:cursor-not-allowed disabled:opacity-50"
+          className="hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-hover rounded-lg bg-blue-500 px-4 py-2 text-white transition disabled:cursor-not-allowed disabled:opacity-50 dark:text-black/80 dark:hover:text-white"
         >
           Previous
         </button>
 
-        <span className="rounded border border-gray-300 px-4 py-2 text-lg font-medium">
+        <span className="rounded border border-gray-300 px-4 py-2 text-lg font-medium dark:text-white">
           {page}
         </span>
 
@@ -119,7 +119,7 @@ const RecentRepo = ({ value }) => {
             setPage((old) => old + 1);
           }}
           disabled={!data?.hasNextPage}
-          className="hover:bg-secondary rounded-lg bg-blue-500 px-4 py-2 text-white transition disabled:cursor-not-allowed disabled:opacity-50"
+          className="hover:bg-primary-hover dark:bg-primary-dark dark:hover:bg-primary-hover rounded-lg bg-blue-500 px-4 py-2 text-white transition disabled:cursor-not-allowed disabled:opacity-50 dark:text-black/80 dark:hover:text-white"
         >
           Next
         </button>
