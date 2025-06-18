@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
-import UserList from "./components/UserList";
+import UserData from "./components/UserData";
 import RecentRepo from "./components/RecentRepo";
 
 const App = () => {
@@ -25,9 +25,7 @@ const App = () => {
             <SearchBar value={value} setValue={setValue} />
           </div>
 
-          <div className="mt-8 rounded-3xl bg-white p-4 sm:p-8">
-            <UserList value={debouncedValue} />
-          </div>
+          <UserData value={debouncedValue} />
 
           <div className="mt-8 rounded-3xl bg-white p-4 sm:p-8">
             <RecentRepo value={debouncedValue} />
