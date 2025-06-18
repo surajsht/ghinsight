@@ -7,6 +7,7 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { PiUsersBold } from "react-icons/pi";
+import UserDataLoader from "./skeletonLoader/UserDataLoader";
 
 const getUserData = async (user) => {
   if (!user) return null;
@@ -26,26 +27,26 @@ const UserData = ({ value }) => {
     enabled: !!value,
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <UserDataLoader />;
 
   if (error) return <div>Error {error.message} </div>;
 
   if (!data) return null;
 
   return (
-    <div className="dark:bg-black-rgba mt-8 rounded-3xl bg-white p-4 dark:text-white sm:p-8">
+    <div className="mt-8 rounded-3xl bg-white p-4 dark:bg-black-rgba dark:text-white sm:p-8">
       <div className="flex flex-col justify-between gap-6">
         <div className="flex w-full items-center gap-4 border-b-2 pb-4">
           <img
             src={data?.avatar_url}
             alt={data?.name}
-            className="h-w-28 w-28 rounded-full object-cover"
+            className="h-28 w-28 rounded-full object-cover"
           />
 
           <div>
             <h2 className="text-xl font-bold sm:text-2xl">{data?.name}</h2>
 
-            <h2 className="dark:text-text-black-rgba mb-2 font-semibold text-black/75">
+            <h2 className="mb-2 font-semibold text-black/75 dark:text-text-black-rgba">
               @{data?.login}
             </h2>
           </div>
@@ -82,7 +83,7 @@ const UserData = ({ value }) => {
 
           <div className="flex items-center gap-2">
             <PiUsersBold />
-            <span className="dark:text-primary-dark text-primary">
+            <span className="text-primary dark:text-primary-dark">
               {" "}
               Followers:{" "}
             </span>
@@ -91,7 +92,7 @@ const UserData = ({ value }) => {
 
           <div className="flex items-center gap-2">
             <FaRegUser />
-            <span className="dark:text-primary-dark text-primary">
+            <span className="text-primary dark:text-primary-dark">
               Following:{" "}
             </span>
             {data?.following}

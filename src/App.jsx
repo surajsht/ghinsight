@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedValue(value);
+      setDebouncedValue(value.trim());
     }, 500);
 
     return () => clearTimeout(timer);
@@ -20,7 +20,7 @@ const App = () => {
     <>
       <div className="min-h-screen bg-gray-100 py-14 font-sans dark:bg-[#121212]">
         <div className="container">
-          <div className="dark:bg-black-rgba rounded-3xl bg-white p-4 sm:p-8">
+          <div className="rounded-3xl bg-white p-4 dark:bg-black-rgba sm:p-8">
             <Navbar />
             <SearchBar value={value} setValue={setValue} />
           </div>
