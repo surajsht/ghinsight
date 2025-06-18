@@ -9,13 +9,14 @@ import { FaRegUser } from "react-icons/fa";
 import { PiUsersBold } from "react-icons/pi";
 import UserDataLoader from "./skeletonLoader/UserDataLoader";
 import ErrorState from "./ErrorState";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const getUserData = async (user) => {
   if (!user) return null;
 
   const resp = await axios.get(`https://api.github.com/users/${user}`, {
     headers: {
-      Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
+      Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
     },
   });
   return resp.data;
@@ -36,11 +37,17 @@ const UserData = ({ value }) => {
     <div className="mt-8 rounded-3xl bg-white p-4 dark:bg-black-rgba dark:text-white sm:p-8">
       <div className="flex flex-col justify-between gap-6">
         <div className="flex w-full items-center gap-4 border-b-2 pb-4">
-          <img
-            src={data?.avatar_url}
-            alt={data?.name}
-            className="h-28 w-28 rounded-full object-cover"
-          />
+          <div className="h-28 w-28 overflow-hidden rounded-full">
+            <LazyLoadImage
+              alt={data?.name}
+              height={112}
+              src={data?.avatar_url}
+              width={112}
+              effect="blur"
+              placeholderSrc="/fallback.jpg"
+              className="h-full w-full object-cover"
+            />
+          </div>
 
           <div>
             <h2 className="text-xl font-bold hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover sm:text-2xl">
@@ -49,8 +56,7 @@ const UserData = ({ value }) => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                {" "}
-                {data?.name}{" "}
+                {data?.name}
               </a>
             </h2>
 
@@ -60,7 +66,7 @@ const UserData = ({ value }) => {
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col sm:flex-row sm:flex-wrap gap-4">
+        <div className="flex flex-1 flex-col gap-4 sm:flex-row sm:flex-wrap">
           <div className="flex items-center gap-2">
             <MdOutlineEmail />
             <span>{data?.email || "Email not included"}</span>
@@ -92,8 +98,7 @@ const UserData = ({ value }) => {
           <div className="flex items-center gap-2">
             <PiUsersBold />
             <span className="text-primary dark:text-primary-dark">
-              {" "}
-              Followers:{" "}
+              Followers:
             </span>
             {data?.followers}
           </div>
@@ -101,7 +106,7 @@ const UserData = ({ value }) => {
           <div className="flex items-center gap-2">
             <FaRegUser />
             <span className="text-primary dark:text-primary-dark">
-              Following:{" "}
+              Following:
             </span>
             {data?.following}
           </div>

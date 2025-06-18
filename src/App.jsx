@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 import UserData from "./components/UserData";
 import RecentRepo from "./components/RecentRepo";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const App = () => {
   const [value, setValue] = useState("");

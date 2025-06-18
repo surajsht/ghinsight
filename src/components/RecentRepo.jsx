@@ -14,7 +14,7 @@ const getRepoData = async (user, page) => {
     `https://api.github.com/users/${user}/repos?page=${page}&per_page=10`,
     {
       headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN_ID}`,
+        Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
       },
     },
   );
@@ -46,7 +46,6 @@ const RecentRepo = ({ value }) => {
     queryKey: ["repos", value, page],
     queryFn: () => getRepoData(value, page),
     enabled: !!value,
-    placeholderData: keepPreviousData,
   });
 
   if (isLoading) return <RecentRepoLoader />;
@@ -55,65 +54,60 @@ const RecentRepo = ({ value }) => {
 
   return (
     <div className="mt-8">
-      {isFetching ? (
-        <RecentRepoLoader />
-      ) : (
-        <div className="flex flex-col flex-wrap justify-between gap-4 md:flex-row">
-          {data?.repos?.map((repo) => {
-            return (
-              <div
-                key={repo?.id}
-                className="flex flex-col flex-wrap items-start justify-center gap-2 rounded-3xl bg-white p-4 dark:bg-black-rgba dark:text-white sm:p-8 md:w-[calc(50%-8px)]"
-              >
-                <h2 className="text-2xl font-bold">
-                  <a
-                    href={repo?.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
-                  >
-                    {repo?.name.length > 18
-                      ? repo.name.slice(0, 18) + "..."
-                      : repo.name}
-                  </a>
-                </h2>
+      <div className="flex flex-col flex-wrap justify-between gap-4 md:flex-row">
+        {data?.repos?.map((repo) => {
+          return (
+            <div
+              key={repo?.id}
+              className="flex flex-col flex-wrap items-start justify-center gap-2 rounded-3xl bg-white p-4 dark:bg-black-rgba dark:text-white sm:p-8 md:w-[calc(50%-8px)]"
+            >
+              <h2 className="text-2xl font-bold">
+                <a
+                  href={repo?.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
+                >
+                  {repo?.name.length > 18
+                    ? repo.name.slice(0, 18) + "..."
+                    : repo.name}
+                </a>
+              </h2>
 
-                {repo?.description && (
-                  <p>
-                    {repo.description.length > 30
-                      ? repo.description.slice(0, 50) + "..."
-                      : repo.description}
-                  </p>
-                )}
+              {repo?.description && (
+                <p>
+                  {repo.description.length > 30
+                    ? repo.description.slice(0, 50) + "..."
+                    : repo.description}
+                </p>
+              )}
+
+              <div className="flex items-center gap-2">
+                <span
+                  className={`block h-3 w-3 rounded-full ${languageColors[repo?.language] || languageColors["Other"]}`}
+                ></span>
+                {repo?.language || "Other"}
+              </div>
+
+              <div className="flex items-center gap-6">
+                <div className="flex items-center gap-2">
+                  <FaStar style={{ color: "#e3b341" }} />
+                  <span>{repo?.stargazers_count}</span>
+                </div>
 
                 <div className="flex items-center gap-2">
-                  <span
-                    className={`block h-3 w-3 rounded-full ${languageColors[repo?.language] || languageColors["Other"]}`}
-                  ></span>
-                  {repo?.language || "Other"}
+                  <FaCodeFork />
+                  <span>Fork Count: {repo?.forks_count}</span>
                 </div>
-
-                <div className="flex items-center gap-6">
-                  <div className="flex items-center gap-2">
-                    <FaStar style={{ color: "#e3b341" }} />
-                    <span>{repo?.stargazers_count}</span>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <FaCodeFork />
-                    <span>Fork Count: {repo?.forks_count}</span>
-                  </div>
-                </div>
-
-                <span>
-                  Last updated:{" "}
-                  {new Date(repo?.updated_at).toLocaleDateString()}
-                </span>
               </div>
-            );
-          })}
-        </div>
-      )}
+
+              <span>
+                Last updated: {new Date(repo?.updated_at).toLocaleDateString()}
+              </span>
+            </div>
+          );
+        })}
+      </div>
 
       <div className="mt-8 flex items-center justify-center gap-4">
         <button
