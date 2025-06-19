@@ -4,6 +4,7 @@ import axios from "axios";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const fetchFollowers = async ({ pageParam, queryKey }) => {
   const user = queryKey[1];
@@ -71,11 +72,18 @@ const FollowersList = () => {
                 key={follower?.id}
                 className="flex flex-col items-center justify-center gap-4 sm:w-[calc(50%-8px)] sm:rounded-xl sm:border-2 sm:p-4 [&:not(:first-child)]:mt-6 [&:not(:first-child)]:border-t-2 [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:mt-0 sm:[&:not(:first-child)]:border-t-2 sm:[&:not(:first-child)]:pt-4"
               >
-                <img
-                  src={follower.avatar_url}
-                  alt={follower.login}
-                  className="mx-auto h-36 w-36 rounded-full"
-                />
+                <div className="h-36 w-36 overflow-hidden rounded-full">
+                  <LazyLoadImage
+                    alt={follower.login}
+                    height={144}
+                    src={follower.avatar_url}
+                    width={144}
+                    effect="blur"
+                    placeholderSrc="/fallback.jpg"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+
                 <a
                   href={follower.html_url}
                   target="_blank"

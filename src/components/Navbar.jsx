@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router";
 
 const getDarkModeStatus = () =>
   JSON.parse(localStorage.getItem("darkMode")) || false;
@@ -20,9 +21,11 @@ const Navbar = () => {
   return (
     <nav>
       <div className="flex items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold sm:text-4xl dark:text-white">
-          <span className="text-primary dark:text-primary-dark">Gh</span>
-          Insight
+        <h1 className="text-3xl font-bold dark:text-white sm:text-4xl">
+          <Link to="/">
+            <span className="text-primary dark:text-primary-dark">Gh</span>
+            Insight
+          </Link>
         </h1>
 
         <div
