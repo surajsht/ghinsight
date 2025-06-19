@@ -1,5 +1,5 @@
 import axios from "axios";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { FaStar } from "react-icons/fa";
 import { FaCodeFork } from "react-icons/fa6";
 import { languageColors } from "../constants/LanguageColors";

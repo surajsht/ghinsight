@@ -10,6 +10,7 @@ import { PiUsersBold } from "react-icons/pi";
 import UserDataLoader from "./skeletonLoader/UserDataLoader";
 import ErrorState from "./ErrorState";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router";
 
 const getUserData = async (user) => {
   if (!user) return null;
@@ -97,9 +98,12 @@ const UserData = ({ value }) => {
 
           <div className="flex items-center gap-2">
             <PiUsersBold />
-            <span className="text-primary dark:text-primary-dark">
+            <Link
+              to={`/followers/${value}`}
+              className="text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
+            >
               Followers:
-            </span>
+            </Link>
             {data?.followers}
           </div>
 
