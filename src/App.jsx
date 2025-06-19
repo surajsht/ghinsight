@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router";
 import Home from "./page/Home";
 import Followers from "./page/Followers";
 import { useState, useEffect } from "react";
+import Following from "./page/Following";
 
 const getSearchInput = () => {
   return JSON.parse(sessionStorage.getItem("searchInput")) || "";
@@ -34,6 +35,7 @@ const App = () => {
         }
       />
       <Route path="/followers/:user" element={<Followers />} />
+      <Route path="/following/:user" element={<Following />} />
     </Routes>
   );
 };

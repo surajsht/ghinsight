@@ -110,9 +110,12 @@ const UserData = ({ value }) => {
 
           <div className="flex items-center gap-2">
             <FaRegUser />
-            <span className="text-primary dark:text-primary-dark">
+           <Link
+              to={`/following/${value}`}
+              className="text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
+            >
               Following:
-            </span>
+            </Link>
             {data?.following}
           </div>
         </div>
