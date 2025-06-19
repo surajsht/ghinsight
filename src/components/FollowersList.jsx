@@ -54,7 +54,7 @@ const FollowersList = () => {
       <div className="text-center">
         <ErrorState message={error.message} />
         <button
-          className="rounded-xl bg-primary px-5 py-2 text-base font-medium text-white transition duration-200 hover:bg-primary-hover focus:outline-none dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white mt-4"
+          className="mt-4 rounded-xl bg-primary px-5 py-2 text-base font-medium text-white transition duration-200 hover:bg-primary-hover dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white"
           onClick={() => navigate("/")}
         >
           Goto Home
@@ -64,18 +64,9 @@ const FollowersList = () => {
 
   return (
     <div className="mt-10 rounded-3xl bg-white p-4 dark:bg-black-rgba sm:p-8">
-      <div className="mb-9 flex items-center justify-between gap-2">
-        <h2 className="border-l-4 border-primary pl-4 text-2xl font-medium dark:border-primary-dark dark:text-white">
-          Follower of {user}
-        </h2>
-
-        <button
-          className="rounded-xl bg-primary px-5 py-2 text-base font-medium text-white transition duration-200 hover:bg-primary-hover focus:outline-none dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white"
-          onClick={() => navigate("/")}
-        >
-          Goto Home
-        </button>
-      </div>
+      <h2 className="mb-9 border-l-4 border-primary pl-4 text-2xl font-medium dark:border-primary-dark dark:text-white">
+        Follower of {user}
+      </h2>
 
       <div className="sm:flex sm:flex-wrap sm:gap-4">
         {data.pages.flat().map((follower) => {
@@ -116,6 +107,13 @@ const FollowersList = () => {
           Fetching New Users...
         </h2>
       )}
+
+      <button
+        onClick={() => navigate("/")}
+        className="fixed bottom-6 right-6 z-50 rounded-full bg-primary p-4 text-white shadow-lg transition hover:bg-primary-hover dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white"
+      >
+        Goto Home
+      </button>
     </div>
   );
 };

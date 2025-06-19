@@ -13,7 +13,8 @@ const App = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedValue(value.trim());
+      let trimmed = value.trim();
+      setDebouncedValue(trimmed);
       sessionStorage.setItem("searchInput", JSON.stringify(trimmed));
     }, 500);
 
