@@ -5,6 +5,8 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import UserListLoader from "./skeletonLoader/UserListLoader";
+import ErrorState from "./ErrorState";
 
 const fetchFollowers = async ({ pageParam, queryKey }) => {
   const user = queryKey[1];
@@ -46,56 +48,65 @@ const FollowersList = () => {
     if (inView) fetchNextPage();
   }, [inView]);
 
-  if (isLoading) return <h2>Loading...</h2>;
-  if (error) return <h2> Error: {error.message} </h2>;
+  if (isLoading) return <UserListLoader />;
+  if (error)
+    return (
+      <div className="text-center">
+        <ErrorState message={error.message} />
+        <button
+          className="rounded-xl bg-primary px-5 py-2 text-base font-medium text-white transition duration-200 hover:bg-primary-hover focus:outline-none dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white mt-4"
+          onClick={() => navigate("/")}
+        >
+          Goto Home
+        </button>
+      </div>
+    );
 
   return (
     <div className="mt-10 rounded-3xl bg-white p-4 dark:bg-black-rgba sm:p-8">
-      <div>
-        <div className="mb-9 flex items-center justify-between gap-2">
-          <h2 className="border-l-4 border-primary pl-4 text-2xl font-medium dark:border-primary-dark dark:text-white">
-            Follower of {user}
-          </h2>
+      <div className="mb-9 flex items-center justify-between gap-2">
+        <h2 className="border-l-4 border-primary pl-4 text-2xl font-medium dark:border-primary-dark dark:text-white">
+          Follower of {user}
+        </h2>
 
-          <button
-            className="rounded-xl bg-primary px-5 py-2 text-base font-medium text-white transition duration-200 hover:bg-primary-hover focus:outline-none dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white"
-            onClick={() => navigate("/")}
-          >
-            Goto Home
-          </button>
-        </div>
+        <button
+          className="rounded-xl bg-primary px-5 py-2 text-base font-medium text-white transition duration-200 hover:bg-primary-hover focus:outline-none dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white"
+          onClick={() => navigate("/")}
+        >
+          Goto Home
+        </button>
+      </div>
 
-        <div className="sm:flex sm:flex-wrap sm:gap-4">
-          {data.pages.flat().map((follower) => {
-            return (
-              <div
-                key={follower?.id}
-                className="flex flex-col items-center justify-center gap-4 sm:w-[calc(50%-8px)] sm:rounded-xl sm:border-2 sm:p-4 [&:not(:first-child)]:mt-6 [&:not(:first-child)]:border-t-2 [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:mt-0 sm:[&:not(:first-child)]:border-t-2 sm:[&:not(:first-child)]:pt-4"
-              >
-                <div className="h-36 w-36 overflow-hidden rounded-full">
-                  <LazyLoadImage
-                    alt={follower.login}
-                    height={144}
-                    src={follower.avatar_url}
-                    width={144}
-                    effect="blur"
-                    placeholderSrc="/fallback.jpg"
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-
-                <a
-                  href={follower.html_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-2xl text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
-                >
-                  {follower.login}
-                </a>
+      <div className="sm:flex sm:flex-wrap sm:gap-4">
+        {data.pages.flat().map((follower) => {
+          return (
+            <div
+              key={follower?.id}
+              className="flex flex-col items-center justify-center gap-4 sm:w-[calc(50%-8px)] sm:rounded-xl sm:border-2 sm:p-4 [&:not(:first-child)]:mt-6 [&:not(:first-child)]:border-t-2 [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:mt-0 sm:[&:not(:first-child)]:border-t-2 sm:[&:not(:first-child)]:pt-4"
+            >
+              <div className="h-36 w-36 overflow-hidden rounded-full">
+                <LazyLoadImage
+                  alt={follower.login}
+                  height={144}
+                  src={follower.avatar_url}
+                  width={144}
+                  effect="blur"
+                  placeholderSrc="/fallback.jpg"
+                  className="h-full w-full object-cover"
+                />
               </div>
-            );
-          })}
-        </div>
+
+              <a
+                href={follower.html_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
+              >
+                {follower.login}
+              </a>
+            </div>
+          );
+        })}
       </div>
 
       {hasNextPage && <div ref={ref}></div>}
