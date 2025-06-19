@@ -113,6 +113,8 @@ const UserList = ({ type }) => {
 
       <button
         onClick={() => navigate("/")}
+        aria-label="Go to Home"
+        title="Go to Home"
         className="fixed bottom-6 right-6 z-50 rounded-full bg-primary p-3 text-white shadow-lg transition hover:bg-primary-hover dark:bg-primary-dark dark:text-black/80 dark:hover:bg-primary-hover dark:hover:text-white"
       >
         <FaHome size={26} />
