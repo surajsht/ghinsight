@@ -60,7 +60,7 @@ const RecentRepo = ({ value }) => {
           return (
             <div
               key={repo?.id}
-              className="flex flex-col flex-wrap items-start justify-center gap-2 rounded-3xl bg-white p-4 dark:bg-black-rgba dark:text-white sm:p-8 md:w-[calc(50%-8px)]"
+              className="flex flex-col flex-wrap items-start justify-start gap-2 rounded-3xl bg-white p-4 dark:bg-black-rgba dark:text-white sm:p-8 md:w-[calc(50%-8px)]"
             >
               <h2 className="text-2xl font-bold">
                 <a
