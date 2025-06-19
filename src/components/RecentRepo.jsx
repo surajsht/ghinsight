@@ -46,6 +46,7 @@ const RecentRepo = ({ value }) => {
     queryKey: ["repos", value, page],
     queryFn: () => getRepoData(value, page),
     enabled: !!value,
+    staleTime: 1000 * 60 * 5,
   });
 
   if (isLoading) return <RecentRepoLoader />;

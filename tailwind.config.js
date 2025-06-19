@@ -13,6 +13,7 @@ module.exports = {
         "black-rgba": "rgba(255, 255, 255, 0.16)",
         "black-rgba-light": "rgba(255, 255, 255, 0.3)",
         "text-black-rgba": "rgba(255, 255, 255, 0.7)",
+        "dark-mode": "#141d2e"
       },
     },
     container: {

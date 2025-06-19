@@ -28,6 +28,7 @@ const UserData = ({ value }) => {
     queryKey: ["users", value],
     queryFn: () => getUserData(value),
     enabled: !!value,
+    staleTime: 1000 * 60 * 5,
   });
 
   if (isLoading) return <UserDataLoader />;
