@@ -6,7 +6,7 @@ import { FaHome } from "react-icons/fa";
 import ErrorState from "./ErrorState";
 import UserListLoader from "./skeletonLoader/UserListLoader";
 import useUserList from "../hooks/useUserList";
-import UserCard from "./UserCard";
+import UserCardList from "./UserCardList";
 
 const UserList = ({ type }) => {
   const { user } = useParams();
@@ -46,7 +46,7 @@ const UserList = ({ type }) => {
         {type} by {user}
       </h2>
 
-      <UserCard users={data?.pages?.flat()} />
+      <UserCardList users={data?.pages?.flat()} />
 
       {hasNextPage && <div ref={ref}></div>}
 

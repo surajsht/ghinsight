@@ -1,5 +1,3 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { IoCreateOutline } from "react-icons/io5";
 import { MdBrowserUpdated } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
@@ -11,25 +9,10 @@ import UserDataLoader from "./skeletonLoader/UserDataLoader";
 import ErrorState from "./ErrorState";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router";
+import useGithubUser from "../hooks/useGithubUser";
 
-const getUserData = async (user) => {
-  if (!user) return null;
-
-  const resp = await axios.get(`https://api.github.com/users/${user}`, {
-    headers: {
-      Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
-    },
-  });
-  return resp.data;
-};
-
-const UserData = ({ value }) => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["users", value],
-    queryFn: () => getUserData(value),
-    enabled: !!value,
-    staleTime: 1000 * 60 * 5,
-  });
+const UserData = ({ username }) => {
+  const { data, isLoading, error } = useGithubUser(username);
 
   if (isLoading) return <UserDataLoader />;
   if (error) return <ErrorState message={error.message} />;
@@ -41,7 +24,7 @@ const UserData = ({ value }) => {
         <div className="flex w-full items-center gap-4 border-b-2 pb-4">
           <div className="h-28 w-28 overflow-hidden rounded-full">
             <LazyLoadImage
-              alt={data?.name}
+              alt={data?.name || "Github user"}
               height={112}
               src={data?.avatar_url}
               width={112}
@@ -100,7 +83,7 @@ const UserData = ({ value }) => {
           <div className="flex items-center gap-2">
             <PiUsersBold />
             <Link
-              to={`/followers/${value}`}
+              to={`/followers/${username}`}
               className="text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
             >
               Followers:
@@ -111,7 +94,7 @@ const UserData = ({ value }) => {
           <div className="flex items-center gap-2">
             <FaRegUser />
             <Link
-              to={`/following/${value}`}
+              to={`/following/${username}`}
               className="text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
             >
               Following:

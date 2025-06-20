@@ -1,6 +1,6 @@
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
-const UserCard = ({ users }) => {
+const UserCardList = ({ users }) => {
   return (
     <div className="sm:flex sm:flex-wrap sm:gap-4">
       {users.map((user) => {
@@ -36,4 +36,4 @@ const UserCard = ({ users }) => {
   );
 };
 
-export default UserCard;
+export default UserCardList;

@@ -1,53 +1,19 @@
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import { FaStar } from "react-icons/fa";
 import { FaCodeFork } from "react-icons/fa6";
 import { languageColors } from "../constants/LanguageColors";
 import { useEffect, useState } from "react";
 import RecentRepoLoader from "./skeletonLoader/RecentRepoLoader";
 import ErrorState from "./ErrorState";
+import useUserRepos from "../hooks/useUserRepos";
 
-const getRepoData = async (user, page) => {
-  if (!user) return null;
-
-  const res = await axios.get(
-    `https://api.github.com/users/${user}/repos?page=${page}&per_page=10`,
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
-      },
-    },
-  );
-
-  const data = res.data;
-
-  const linkHeader = res.headers["link"];
-
-  let hasNextPage = false;
-
-  if (linkHeader && linkHeader.includes('rel="next"')) {
-    hasNextPage = true;
-  }
-
-  return {
-    repos: data,
-    hasNextPage,
-  };
-};
-
-const RecentRepo = ({ value }) => {
+const RecentRepo = ({ username }) => {
   const [page, setPage] = useState(1);
+
+  const {data, isLoading, error, isFetching} = useUserRepos(username, page)
 
   useEffect(() => {
     setPage(1);
-  }, [value]);
-
-  const { data, isLoading, error, isFetching } = useQuery({
-    queryKey: ["repos", value, page],
-    queryFn: () => getRepoData(value, page),
-    enabled: !!value,
-    staleTime: 1000 * 60 * 5,
-  });
+  }, [username]);
 
   if (isLoading) return <RecentRepoLoader />;
   if (error) return <ErrorState message={error.message} />;
