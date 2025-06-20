@@ -30,7 +30,7 @@ const Navbar = () => {
 
         <div
           className={`relative h-6 w-11 cursor-pointer rounded-full transition-colors duration-300 ${darkMode ? "bg-primary dark:bg-primary-dark" : "bg-gray-300"}`}
-          onClick={() => JSON.stringify(setDarkMode(!darkMode))}
+          onClick={() => setDarkMode(!darkMode)}
         >
           <span
             className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform duration-300 ${darkMode ? "translate-x-5" : ""}`}

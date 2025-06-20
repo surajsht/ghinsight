@@ -1,28 +1,12 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
 import { useParams } from "react-router";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useInView } from "react-intersection-observer";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import axios from "axios";
 import { FaHome } from "react-icons/fa";
 import ErrorState from "./ErrorState";
 import UserListLoader from "./skeletonLoader/UserListLoader";
-
-const fetchUsers = async ({ pageParam, queryKey }) => {
-  const [_key, { user, type }] = queryKey;
-
-  const resp = await axios.get(
-    `https://api.github.com/users/${user}/${type}?page=${pageParam}&per_page=10`,
-    {
-      headers: {
-        Authorization: import.meta.env.VITE_GITHUB_TOKEN_ID,
-      },
-    },
-  );
-
-  return resp.data;
-};
+import useUserList from "../hooks/useUserList";
+import UserCard from "./UserCard";
 
 const UserList = ({ type }) => {
   const { user } = useParams();
@@ -34,18 +18,9 @@ const UserList = ({ type }) => {
     isLoading,
     error,
     hasNextPage,
-    fetchNextPage,
     isFetchingNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["userList", { user, type }],
-    queryFn: fetchUsers,
-    initialPageParam: 1,
-    enabled: !!user,
-    staleTime: 1000 * 60 * 5,
-    getNextPageParam: (lastPage, allPage) => {
-      return lastPage.length === 0 ? undefined : allPage.length + 1;
-    },
-  });
+    fetchNextPage,
+  } = useUserList(user, type);
 
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -71,37 +46,7 @@ const UserList = ({ type }) => {
         {type} by {user}
       </h2>
 
-      <div className="sm:flex sm:flex-wrap sm:gap-4">
-        {data?.pages?.flat().map((user) => {
-          return (
-            <div
-              key={user?.id}
-              className="flex flex-col items-center justify-center gap-4 sm:w-[calc(50%-8px)] sm:rounded-xl sm:border-2 sm:p-4 [&:not(:first-child)]:mt-6 [&:not(:first-child)]:border-t-2 [&:not(:first-child)]:pt-6 sm:[&:not(:first-child)]:mt-0 sm:[&:not(:first-child)]:border-t-2 sm:[&:not(:first-child)]:pt-4"
-            >
-              <div className="h-36 w-36 overflow-hidden rounded-full">
-                <LazyLoadImage
-                  alt={user.login}
-                  height={144}
-                  src={user.avatar_url}
-                  width={144}
-                  effect="blur"
-                  placeholderSrc="/fallback.jpg"
-                  className="h-full w-full object-cover"
-                />
-              </div>
-
-              <a
-                href={user.html_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-2xl text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
-              >
-                {user.login}
-              </a>
-            </div>
-          );
-        })}
-      </div>
+      <UserCard users={data?.pages?.flat()} />
 
       {hasNextPage && <div ref={ref}></div>}
 
