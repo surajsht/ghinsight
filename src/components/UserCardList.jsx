@@ -11,7 +11,7 @@ const UserCardList = ({ users }) => {
           >
             <div className="h-36 w-36 overflow-hidden rounded-full">
               <LazyLoadImage
-                alt={user.login}
+                alt={user.login || "Github user"}
                 height={144}
                 src={user.avatar_url}
                 width={144}

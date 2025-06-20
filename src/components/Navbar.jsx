@@ -22,7 +22,7 @@ const Navbar = () => {
     <nav>
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-3xl font-bold dark:text-white sm:text-4xl">
-          <Link to="/">
+          <Link to="/" aria-label="Go to home">
             <span className="text-primary dark:text-primary-dark">Gh</span>
             Insight
           </Link>

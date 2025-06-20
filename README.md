@@ -1,12 +1,54 @@
-# React + Vite
+# Ghinsight — GitHub Profile Finder App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern GitHub profile finder web app built with React and Tailwind CSS.  
+Search any GitHub user and view their profile information and repositories — with responsive design and dark/light mode support.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- 🔍 Search GitHub users by username
+- 🧑‍💻 View user profile details:
+  - Avatar, Name, Bio, Location
+  - Followers, Following, Public Repositories
+  - Profile Link
+- 📦 List public repositories:
+  - Repo name, description
+  - Stars ⭐
+  - Language
+  - Repo link
+- ⚡ Live API fetching from GitHub REST API
+- 🌙 Dark and Light mode toggle
+- 📱 Responsive design — mobile-friendly
+- 🛠 Built with modern stack (React + Vite + Tailwind CSS)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📸 Screenshots
+
+![App Screenshot](./src/assets/screenshots/screenshot-1.webp)
+![App Screenshot](./src/assets/screenshots/screenshot-2.webp)
+![App Screenshot](./src/assets/screenshots/screenshot-3.webp)
+![App Screenshot](./src/assets/screenshots/screenshot-4.webp)
+
+---
+
+## ⚙️ Tech Stack
+
+- **Frontend:** React (Vite)
+- **Styling:** Tailwind CSS
+- **HTTP Requests:** Axios
+- **State Management:** React Hooks (useState, useEffect)
+- **Icons:** React Icons
+- **API:** GitHub REST API (v3)
+
+---
+
+## 🛠 Installation & Setup
+
+1. Clone the repo:
+
+```bash
+git clone https://github.com/surajsht/ghinsight.git
+cd ghinsight
+```

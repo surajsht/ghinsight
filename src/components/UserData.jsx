@@ -84,6 +84,7 @@ const UserData = ({ username }) => {
             <PiUsersBold />
             <Link
               to={`/followers/${username}`}
+              aria-label="Go to followers"
               className="text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
             >
               Followers:
@@ -95,6 +96,7 @@ const UserData = ({ username }) => {
             <FaRegUser />
             <Link
               to={`/following/${username}`}
+              aria-label="Go to following"
               className="text-primary hover:text-primary-hover dark:text-primary-dark dark:hover:text-primary-hover"
             >
               Following:
