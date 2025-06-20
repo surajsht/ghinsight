@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router";
 import Home from "./page/Home";
 import { useState, useEffect } from "react";
 import UserListPage from "./page/UserListPage";
+import NotFound from "./page/NotFound";
 
 const getSearchInput = () => {
   return JSON.parse(sessionStorage.getItem("searchInput")) || "";
@@ -41,6 +42,7 @@ const App = () => {
         path="/following/:user"
         element={<UserListPage type="following" />}
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };
