@@ -2,14 +2,14 @@ import { FaStar } from "react-icons/fa";
 import { FaCodeFork } from "react-icons/fa6";
 import { languageColors } from "../constants/LanguageColors";
 import { useEffect, useState } from "react";
-import RecentRepoLoader from "./skeletonLoader/RecentRepoLoader";
+import RecentRepoLoader from "./loader/RecentRepoLoader";
 import ErrorState from "./ErrorState";
 import useUserRepos from "../hooks/useUserRepos";
 
 const RecentRepo = ({ username }) => {
   const [page, setPage] = useState(1);
 
-  const {data, isLoading, error, isFetching} = useUserRepos(username, page)
+  const { data, isLoading, error, isFetching } = useUserRepos(username, page);
 
   useEffect(() => {
     setPage(1);

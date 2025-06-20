@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 import { FaHome } from "react-icons/fa";
 import ErrorState from "./ErrorState";
-import UserListLoader from "./skeletonLoader/UserListLoader";
+import UserListLoader from "./loader/UserListLoader";
 import useUserList from "../hooks/useUserList";
 import UserCardList from "./UserCardList";
 

@@ -5,7 +5,7 @@ import { FaRegFolderOpen } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaRegUser } from "react-icons/fa";
 import { PiUsersBold } from "react-icons/pi";
-import UserDataLoader from "./skeletonLoader/UserDataLoader";
+import UserDataLoader from "./loader/UserDataLoader";
 import ErrorState from "./ErrorState";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router";

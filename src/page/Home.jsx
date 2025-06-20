@@ -1,8 +1,9 @@
-import "react-lazy-load-image-component/src/effects/blur.css";
+import { lazy, Suspense } from "react";
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
 import UserData from "../components/UserData";
-import RecentRepo from "../components/RecentRepo";
+import LoadingFallBack from "../components/loader/LoadingFallback"
+const RecentRepo = lazy(() => import("../components/RecentRepo"));
 
 const Home = ({ value, debouncedValue, setValue }) => {
   return (
@@ -16,7 +17,9 @@ const Home = ({ value, debouncedValue, setValue }) => {
 
           <UserData username={debouncedValue} />
 
-          {debouncedValue && <RecentRepo username={debouncedValue} />}
+          <Suspense fallback={<LoadingFallBack />}>
+            {debouncedValue && <RecentRepo username={debouncedValue} />}
+          </Suspense>
         </div>
       </div>
     </>
